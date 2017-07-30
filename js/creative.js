@@ -47,11 +47,11 @@
 
     // Initialize and Configure Magnific Popup Lightbox Plugin
     /*
-    $('.popup-gallery').magnificPopup({
-        delegate: 'a',
-        tLoading: 'Loading image #%curr%...',
-        mainClass: 'mfp-with-fade'
-    }); */
+     $('.popup-gallery').magnificPopup({
+     delegate: 'a',
+     tLoading: 'Loading image #%curr%...',
+     mainClass: 'mfp-with-fade'
+     }); */
 
     // Hinge effect popup
     $('a.hinge').magnificPopup({
@@ -68,24 +68,30 @@
         midClick: true
     });
 
-$('.popup-gallery .video').magnificPopup({
-  type: 'iframe',
-  
-  
-  iframe: {
-     markup: '<div class="mfp-iframe-scaler">'+
-                '<div class="mfp-close"></div>'+
-                '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>'+
-                '<div class="mfp-title">Some caption</div>'+
-              '</div>'
-  },
-  callbacks: {
-    markupParse: function(template, values, item) {
-     values.title = item.el.attr('title');
-    }
-  }
-  
-  
-});
+    $('.popup-gallery .video').magnificPopup({
+        type: 'iframe',
+        mainClass: 'mfp-with-fade',
+        removalDelay: 1000, //delay removal by X to allow out-animation
+        iframe: {
+            markup: '<div class="mfp-iframe-scaler">' +
+                    '<div class="mfp-close"></div>' +
+                    '<iframe class="mfp-iframe" frameborder="0" allowfullscreen></iframe>' +
+                    '<div class="mfp-title">Some caption</div>' +
+                    '</div>'
+        },
+        callbacks: {
+            markupParse: function (template, values, item) {
+                values.title = item.el.attr('title');
+            },
+            beforeClose: function () {
+                this.content.addClass('hinge');
+            },
+            close: function () {
+                this.content.removeClass('hinge');
+            }
+        }
+
+
+    });
 
 })(jQuery); // End of use strict
